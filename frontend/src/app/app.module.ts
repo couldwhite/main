@@ -6,10 +6,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HttpClientModule }   from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import {RouterModule, Routes} from "@angular/router";
+import { MainPageComponent } from './main-page/main-page.component';
+
+const appRoutes: Routes = [
+  {path: '', component: MainPageComponent},
+  {path: 'my_orders', component: MyOrdersComponent}
+]
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MyOrdersComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -18,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
