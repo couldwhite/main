@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Supplier} from "./supplier";
 import {Product} from "./product";
 
+//TODO: baseUrl храним в енвайронмент ts
 const baseUrl = "http://localhost:8090/api/suppliers/"
 @Injectable({
   providedIn: 'root'

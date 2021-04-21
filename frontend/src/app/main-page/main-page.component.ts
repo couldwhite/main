@@ -25,7 +25,7 @@ export class MainPageComponent implements OnInit {
   constructor(private supplierService: SupplierService,
               private productService: ProductService,
               private orderService: OrderService) {
-    this.suppliers = new Array<Supplier>();
+    this.suppliers = [];
     this.suppliersList = new Array<string>();
     this.productsList = new Array<string>();
     this.order = new Order();
@@ -43,9 +43,12 @@ export class MainPageComponent implements OnInit {
 
   choiceSupplier(event: any){
     this.supplierName = event.innerText;
-    this.productsList.length=0;
+    // TODO: зачем length = 0?
+
+    this.productsList = [];
     this.productService.getProductBySupplierName(event.innerText).subscribe(data=>
       ((data.body?.map(el=>{
+        //TODO: не нужны скобки
         this.productsList?.push(el.name)
       }))));
     this.supplierService.getSupplierIdByName(this.supplierName).subscribe(num => (
@@ -61,6 +64,7 @@ export class MainPageComponent implements OnInit {
   }
 
   createOrder(){
+    // TODO: почему через getElement? Использовать AngularReactiveForm
     this.inputAddress = ((document.getElementById('address') as HTMLInputElement).value);
     console.log(this.supplierId, this.productId, this.inputAddress);
     this.order.productId = this.productId;
