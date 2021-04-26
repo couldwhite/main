@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import {RouterModule, Routes} from "@angular/router";
 import { MainPageComponent } from './main-page/main-page.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 const appRoutes: Routes = [
   {path: '', component: MainPageComponent},
@@ -28,7 +29,9 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

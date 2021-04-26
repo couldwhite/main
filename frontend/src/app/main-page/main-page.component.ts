@@ -4,15 +4,16 @@ import {Order} from "../order/order";
 import {SupplierService} from "../supplier/supplier.service";
 import {ProductService} from "../supplier/product.service";
 import {OrderService} from "../order/order.service";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css']
+  styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-
-  suppliers: Array<Supplier>;
+  addressControl: FormControl;
+  suppliers: Supplier[];
   suppliersList: string[];
   productsList: string[];
   productName = "";
@@ -29,9 +30,11 @@ export class MainPageComponent implements OnInit {
     this.suppliersList = new Array<string>();
     this.productsList = new Array<string>();
     this.order = new Order();
+    this.addressControl = new FormControl();
   }
   ngOnInit() {
     this.loadSuppliers();
+
   }
 
   private loadSuppliers() {
@@ -43,14 +46,12 @@ export class MainPageComponent implements OnInit {
 
   choiceSupplier(event: any){
     this.supplierName = event.innerText;
-    // TODO: зачем length = 0?
 
     this.productsList = [];
     this.productService.getProductBySupplierName(event.innerText).subscribe(data=>
-      ((data.body?.map(el=>{
-        //TODO: не нужны скобки
+      ((data.body?.map(el=>
         this.productsList?.push(el.name)
-      }))));
+      ))));
     this.supplierService.getSupplierIdByName(this.supplierName).subscribe(num => (
       this.supplierId = num.body
     ));
@@ -64,8 +65,7 @@ export class MainPageComponent implements OnInit {
   }
 
   createOrder(){
-    // TODO: почему через getElement? Использовать AngularReactiveForm
-    this.inputAddress = ((document.getElementById('address') as HTMLInputElement).value);
+    this.inputAddress = this.addressControl.value;
     console.log(this.supplierId, this.productId, this.inputAddress);
     this.order.productId = this.productId;
     this.order.supplierId = this.supplierId;
